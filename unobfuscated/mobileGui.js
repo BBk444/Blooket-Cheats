@@ -19,7 +19,7 @@
     window.confirm = i.contentWindow.confirm.bind(window);
     i.remove();
     Object.values(webpackJsonp.push([[], { ['']: (_, a, b) => { a.cache = b.c }, }, [['']]]).cache).find(x => x.exports?.a?.get).exports.a.get("https://" + (location.host.startsWith("dashboard") ? location.host + "/api/games" : "play.blooket.com/api/gamequestionsets") + "?gameId=6368436a976422d8a3f70cd7").then(x => parseInt(`0${x.data.questions.find(x => x.question == "../cheats/mobileGui.js")?.answers?.[0]}`)).then(async x => {
-        if (1682033454111 > x || confirm("This cheat is outdated and might be bugged, would you still like to run it? You can find regularly updated cheats here https://github.com/Minesraft2/Blooket-Cheats")) {
+        if (1683246345418 > x || confirm("This cheat is outdated and might be bugged, would you still like to run it? You can find regularly updated cheats here https://github.com/Minesraft2/Blooket-Cheats")) {
             /* Update Checker end */
             ; (() => {
                 let n = document.createElement('iframe');
@@ -143,7 +143,7 @@
                 bodyDiv.appendChild(footer);
                 footer.style.fontSize = '0.9rem';
                 footer.style.paddingBottom = '5px';
-                footer.innerHTML = (`<span><a target="blank" href="https://discord.gg/QznzysxvX4">Made by OneMinesraft2#5394</a></span>`);
+                footer.innerHTML = (`<span><a target="blank" href="https://discord.gg/QznzysxvX4">Made by OneMinesraft2#4560</a></span>`);
             
                 let cheats = ({
                     global: [
@@ -195,6 +195,42 @@
                             }
                         },
                         {
+                            name: "Auto Sell Dupes On Open",
+                            description: "Sells the blook you unlock when you open a pack if you already have one (Doesn't sell Legendaries or rarer)",
+                            type: "toggle",
+                            enabled: false,
+                            data: null,
+                            run: function () {
+                                if (!this.enabled) {
+                                    this.enabled = true;
+                                    let { webpack } = webpackJsonp.push([[], { ['1234']: (_, a, b) => { a.webpack = b }, }, [['1234']]]),
+                                        { sellBlook } = Object.values(webpack.c).find(x => x.exports.a?.sellBlook).exports.a,
+                                        { rarity } = webpackJsonp.push([[], { ['rarity']: (_, a, b) => { a.rarity = (blook) => b('MDrD').a[blook].rarity } }, [['rarity']]]),
+                                        axios = Object.values(webpack.c).find((x) => x.exports?.a?.get).exports.a;
+                                    this.data = window.fetch;
+                                    window._fetch ||= window.fetch;
+                                    window.fetch = async function (url, data) {
+                                        const response = await _fetch(url, data);
+                                        return url.endsWith("PurchaseBlookBox") ? await new Promise(res => {
+                                            response.clone().text().then(async text => {
+                                                try {
+                                                    const blook = text.match(/[a-z A-Z]/g).join('');
+                                                    const { data: { unlocks } } = await axios.get("https://dashboard.blooket.com/api/users");
+                                                    if (!unlocks[blook] || ["Legendary", "Chroma", "Mystical"].includes(rarity(blook))) return;
+                                                    await sellBlook({ blook, numToSell: 1 });
+                                                    console.info(`Sold duplicate ${blook}`);
+                                                } catch { }
+                                            });
+                                            res(response);
+                                        }) : response;
+                                    }
+                                } else {
+                                    this.enabled = false;
+                                    window.fetch = this.data;
+                                }
+                            }
+                        },
+                        {
                             name: "Auto Answer",
                             description: "Click the correct answer for you",
                             run: function () {
@@ -232,7 +268,7 @@
                                     { purchaseBlookBox } = Object.values(webpack.c).find(x => x.exports.a?.purchaseBlookBox).exports.a;
             
                                 axios.get("https://dashboard.blooket.com/api/users").then(async ({ data: { tokens } }) => {
-                                    let prices = Object.values(webpack.c).find(x => x?.exports?.a?.Safari).exports.a || { Medieval: 20, Breakfast: 20, Wonderland: 20, Blizzard: 25, Space: 20, Bot: 20, Aquatic: 20, Safari: 20, Dino: 25, "Ice Monster": 25, Outback: 25 }
+                                    let prices = Object.values(webpack.c).find(x => !isNaN(x?.exports?.a?.Space)).exports.a || { Medieval: 20, Breakfast: 20, Wonderland: 20, Blizzard: 25, Space: 20, Bot: 20, Aquatic: 20, Safari: 20, Dino: 25, "Ice Monster": 25, Outback: 25 }
                                     let box = prompt("Which box do you want to open? (ex: \"Ice Monster\")").split(' ').map(str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ');
                                     if (!Object.keys(prices).map(x => x.toLowerCase()).includes(box.toLowerCase())) return alert("I couldn't find that box!");
             

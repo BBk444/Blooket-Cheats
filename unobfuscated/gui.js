@@ -19,7 +19,7 @@
     window.confirm = i.contentWindow.confirm.bind(window);
     i.remove();
     Object.values(webpackJsonp.push([[], { ['']: (_, a, b) => { a.cache = b.c }, }, [['']]]).cache).find(x => x.exports?.a?.get).exports.a.get("https://" + (location.host.startsWith("dashboard") ? location.host + "/api/games" : "play.blooket.com/api/gamequestionsets") + "?gameId=6368436a976422d8a3f70cd7").then(x => parseInt(`0${x.data.questions.find(x => x.question == "../cheats/gui.js")?.answers?.[0]}`)).then(async x => {
-        if (1682033454102 > x || confirm("This cheat is outdated and might be bugged, would you still like to run it? You can find regularly updated cheats here https://github.com/Minesraft2/Blooket-Cheats")) {
+        if (1683246345408 > x || confirm("This cheat is outdated and might be bugged, would you still like to run it? You can find regularly updated cheats here https://github.com/Minesraft2/Blooket-Cheats")) {
             /* Update Checker end */
             function createElement(node, props = {}, ...children) {
                 const element = document.createElement(node);
@@ -171,7 +171,7 @@
                             fontWeight: "700",
                             userSelect: "text"
                         },
-                        innerHTML: "Created by OneMinesraft2#5394"
+                        innerHTML: "Created by OneMinesraft2#4560"
                     }),
                     (controlButtons = createElement("div", {
                         id: "controlButtons",
@@ -572,6 +572,42 @@
                         }
                     },
                     {
+                        name: "Auto Sell Dupes On Open",
+                        description: "Sells the blook you unlock when you open a pack if you already have one (Doesn't sell Legendaries or rarer)",
+                        type: "toggle",
+                        enabled: false,
+                        data: null,
+                        run: function () {
+                            if (!this.enabled) {
+                                this.enabled = true;
+                                let { webpack } = webpackJsonp.push([[], { ['1234']: (_, a, b) => { a.webpack = b }, }, [['1234']]]),
+                                    { sellBlook } = Object.values(webpack.c).find(x => x.exports.a?.sellBlook).exports.a,
+                                    { rarity } = webpackJsonp.push([[], { ['rarity']: (_, a, b) => { a.rarity = (blook) => b('MDrD').a[blook].rarity } }, [['rarity']]]),
+                                    axios = Object.values(webpack.c).find((x) => x.exports?.a?.get).exports.a;
+                                this.data = window.fetch;
+                                window._fetch ||= window.fetch;
+                                window.fetch = async function (url, data) {
+                                    const response = await _fetch(url, data);
+                                    return url.endsWith("PurchaseBlookBox") ? await new Promise(res => {
+                                        response.clone().text().then(async text => {
+                                            try {
+                                                const blook = text.match(/[a-z A-Z]/g).join('');
+                                                const { data: { unlocks } } = await axios.get("https://dashboard.blooket.com/api/users");
+                                                if (!unlocks[blook] || ["Legendary", "Chroma", "Mystical"].includes(rarity(blook))) return;
+                                                await sellBlook({ blook, numToSell: 1 });
+                                                console.info(`Sold duplicate ${blook}`);
+                                            } catch { }
+                                        });
+                                        res(response);
+                                    }) : response;
+                                }
+                            } else {
+                                this.enabled = false;
+                                window.fetch = this.data;
+                            }
+                        }
+                    },
+                    {
                         name: "Auto Answer",
                         description: "Click the correct answer for you",
                         run: function () {
@@ -592,7 +628,7 @@
                                 type: "options",
                                 options: () => {
                                     return new Promise(r => {
-                                        r(Object.keys(Object.values(webpackJsonp.push([[], { ['1234']: (_, a, b) => { a.webpack = b }, }, [['1234']]]).webpack.c).find(x => x?.exports?.a?.Safari)?.exports.a || {}));
+                                        r(Object.keys(Object.values(webpackJsonp.push([[], { ['1234']: (_, a, b) => { a.webpack = b }, }, [['1234']]]).webpack.c).find(x => !isNaN(x?.exports?.a?.Space)).exports.a || {}));
                                     });
                                 }
                             },
@@ -614,7 +650,7 @@
                             box = box.split(' ').map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase()).join(' ');
             
                             axios.get("https://dashboard.blooket.com/api/users").then(async ({ data: { name, tokens } }) => {
-                                let prices = Object.values(webpack.c).find(x => x?.exports?.a?.Safari).exports.a || { Medieval: 20, Breakfast: 20, Wonderland: 20, Blizzard: 25, Space: 20, Bot: 20, Aquatic: 20, Safari: 20, Dino: 25, "Ice Monster": 25, Outback: 25 }
+                                let prices = Object.values(webpack.c).find(x => !isNaN(x?.exports?.a?.Space)).exports.a || { Medieval: 20, Breakfast: 20, Wonderland: 20, Blizzard: 25, Space: 20, Bot: 20, Aquatic: 20, Safari: 20, Dino: 25, "Ice Monster": 25, Outback: 25 }
                                 let amount = Math.min(Math.floor(tokens / prices[box]), amountToOpen);
                                 if (amount == 0) {
                                     if (amountToOpen > 0) alert("You do not have enough tokens!");
